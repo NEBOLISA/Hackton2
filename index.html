@@ -52,8 +52,10 @@
         <div class="right_header">
           <div class="notification_menu_wrapper">
             <button
+              id="notificationMenu"
               aria-haspopup="true"
               aria-expanded="false"
+              aria-controls="notificationContainer"
               class="notifi_icon_div"
             >
               <svg
@@ -71,11 +73,16 @@
                 />
               </svg>
             </button>
-            <div class="notification_container" id="notificationContainer">
+            <div
+              class="notification_container"
+              role="menu"
+              aria-labelledby="notificationMenu"
+              id="notificationContainer"
+            >
               <div class="notification_header">
                 <p>Alerts</p>
                 <div class="header_icons">
-                  <button class="filter_icon">
+                  <button class="filter_icon" role="menuitem">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -97,7 +104,7 @@
                       />
                     </svg>
                   </button>
-                  <button class="check_mark_icon">
+                  <button class="check_mark_icon" role="menuitem">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -128,14 +135,21 @@
           </div>
           <div class="settings_menu_wrapper">
             <button
+              id="settingsMenu"
               aria-haspopup="true"
               aria-expanded="false"
+              aria-controls="settingsContainer"
               class="details_div"
             >
               <p class="name">Davii Collections</p>
               <div class="name_initials_div">DC</div>
             </button>
-            <div class="settings_container" id="settingsContainer">
+            <div
+              class="settings_container"
+              role="menu"
+              aria-labelledby="settingsMenu"
+              id="settingsContainer"
+            >
               <div class="settings_header">
                 <div class="left_setting_header">
                   <div class="name_initials_div">DC</div>
@@ -182,27 +196,42 @@
                 <nav class="top_menu_div">
                   <ul>
                     <li class="menu_item first">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Help Center</a
                       >
                     </li>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Changelog</a
                       >
                     </li>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Community forums</a
                       >
                     </li>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Hire a Shopify Partner</a
                       >
                     </li>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Keyboard shortcuts</a
                       >
                     </li>
@@ -215,12 +244,18 @@
                   </div>
                   <nav>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Manage account</a
                       >
                     </li>
                     <li class="menu_item">
-                      <a href="https://admin.shopify.com" class="menu-item"
+                      <a
+                        href="https://admin.shopify.com"
+                        role="menuitem"
+                        class="menu-item"
                         >Log out</a
                       >
                     </li>
