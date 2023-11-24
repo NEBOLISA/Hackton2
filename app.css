@@ -168,6 +168,14 @@ a {
 }
 .svg_btn {
   cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 4px;
+}
+.svg_btn:focus {
+  border: 2px solid #005bd3;
 }
 .main_section_body {
   max-height: 200px;
@@ -420,6 +428,27 @@ a {
   font-weight: 400;
   font-size: 13px;
 }
+
+.check_mark_icon,
+.filter_icon {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 4px;
+}
+.check_mark_icon:hover,
+.filter_icon:hover {
+  background-color: #f1f1f1;
+}
+.check_mark_icon:active,
+.filter_icon:active {
+  background-color: #f0f0f0;
+}
+.check_mark_icon:focus,
+.filter_icon:focus {
+  border: 2px solid #005bd3;
+}
 .top_menu_div {
   /* padding: 12px; */
   border-top: 0.75px solid #e1e1e1;
@@ -441,27 +470,31 @@ a {
 }
 .menu_item {
   list-style: none;
+}
+.menu_item a {
+  color: #303030;
+  width: 100%;
+  list-style: none;
   padding: 8px 6px;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 400;
   color: #303030;
-}
-.menu_item a {
-  color: #303030;
+  display: inline-block;
 }
 .menu_item a:active,
 .menu_item a:focus {
   color: #303030;
 }
-.menu_item:hover {
+.menu_item a:hover {
   cursor: pointer;
   background-color: #f1f1f1;
 }
-.menu_item:active {
+.menu_item a:active {
   background-color: #f0f0f0;
 }
-.menu_item:focus {
+
+.menu_item a:focus {
   border: 2px solid #005bd3;
 }
 .first {
@@ -514,7 +547,18 @@ a {
   .main_header_msg {
     gap: 10px;
     position: relative;
+    border-radius: 0;
   }
+  .main_section_body {
+    border-radius: 0;
+  }
+  .details_div:active {
+    background-color: transparent;
+  }
+  .details_div:focus {
+    background-color: transparent;
+  }
+
   .close_btn {
     position: absolute;
     right: 10px;
@@ -533,7 +577,7 @@ a {
     background-color: transparent;
   }
   .details_div {
-    background-color: transparent;
+    padding: 0px;
   }
   .notification_container {
     /* left: 50%;
