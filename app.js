@@ -329,8 +329,7 @@ function toggleMainContainerHandler() {
   const currentMaxHeight = computedStyles.maxHeight;
   const isMenuExpanded =
     toggleButton.attributes["aria-expanded"].value === "true";
-  container.style.maxHeight =
-    currentMaxHeight === "200px" ? "fit-content" : "200px";
+  container.style.maxHeight = currentMaxHeight === "200px" ? "100vh" : "200px";
 
   stepsContainer.classList.toggle("menu_active", currentMaxHeight === "200px");
   stepsContainer.setAttribute("aria-hidden", isMenuExpanded);
