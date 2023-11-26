@@ -16,16 +16,18 @@
     <header class="header">
       <nav class="header_nav">
         <div class="left_header">
-          <img
-            class="desktop_logo"
-            src="https://crushingit.tech/hackathon-assets/shopify-icon-desktop.svg"
-            alt="desktop_logo"
-          />
-          <img
-            class="phone_logo"
-            src="https://crushingit.tech/hackathon-assets/shopify-icon.svg"
-            alt="phone_logo"
-          />
+          <a href="https://shopify.com">
+            <img
+              class="desktop_logo"
+              src="https://crushingit.tech/hackathon-assets/shopify-icon-desktop.svg"
+              alt="desktop_logo"
+            />
+            <img
+              class="phone_logo"
+              src="https://crushingit.tech/hackathon-assets/shopify-icon.svg"
+              alt="phone_logo"
+            />
+          </a>
         </div>
         <div class="middle_header">
           <svg
@@ -42,11 +44,7 @@
               fill="#B5B5B5"
             />
           </svg>
-          <!-- <img
-                src="https://crushingit.tech/hackathon-assets/icon-search.svg"
-                class="search_icon"
-                alt="search"
-              /> -->
+
           <input type="search" class="search_box" placeholder="Search" />
         </div>
         <div class="right_header">
@@ -76,6 +74,7 @@
             <div
               class="notification_container"
               role="menu"
+              aria-hidden="true"
               aria-labelledby="notificationMenu"
               id="notificationContainer"
             >
@@ -147,6 +146,7 @@
             <div
               class="settings_container"
               role="menu"
+              aria-hidden="true"
               aria-labelledby="settingsMenu"
               id="settingsContainer"
             >
@@ -273,7 +273,9 @@
           Extend your trial for $1/month for 3 months on select plans.
         </div>
         <div class="right_side_main_header">
-          <button class="plan_btn">Select a plan</button>
+          <button class="plan_btn">
+            <a href="https://shopify.com/pricing">Select a plan</a>
+          </button>
           <button class="svg_btn close_btn">
             <svg
               width="20"
@@ -298,7 +300,13 @@
               Use this personalized guide to get your store up and running.
             </p>
           </div>
-          <button class="right_side_top_header">
+          <button
+            id="stepsDiv"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="stepsWrapper"
+            class="right_side_top_header"
+          >
             <svg
               class="svg_btn"
               width="21"
@@ -322,240 +330,323 @@
             <div class="progress-bar" id="myProgressBar"></div>
           </div>
         </div>
-        <div class="guides">
-          <div class="left_guide clickable">
-            <div class="left_guide_header">
-              <div class="circle_icon_div">
-                <svg
-                  class="circle_icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
-                  fill="none"
+        <div
+          class="steps_wrapper"
+          role="menu"
+          aria-hidden="true"
+          aria-labelledby="stepsDiv"
+          id="stepsWrapper"
+        >
+          <div
+            aria-hidden="true"
+            class="guides"
+            role="menu"
+            aria-labelledby="stepButton0"
+            id="stepGuide0"
+            tabindex="0"
+          >
+            <div class="left_guide clickable">
+              <div class="left_guide_header">
+                <button class="circle_icon_div">
+                  <svg
+                    class="circle_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="#8A8A8A"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="4 6"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="stepButton0"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="stepGuide0"
+                  class="guide_title clickable"
                 >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#8A8A8A"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-dasharray="4 6"
-                  />
-                </svg>
-              </div>
-              <p class="guide_title clickable">Customize your online store</p>
-            </div>
-
-            <div class="middle_guide">
-              <p class="guide_body">
-                Choose a theme and add your logo, colors, and images to reflect
-                your brand. <a href="URL">Learn More</a>
-              </p>
-              <div class="btn_div">
-                <button class="customize_btn middle_btn">
-                  Customize theme
+                  Customize your online store
                 </button>
               </div>
+
+              <div class="middle_guide">
+                <p class="guide_body">
+                  Choose a theme and add your logo, colors, and images to
+                  reflect your brand. <a href="URL">Learn More</a>
+                </p>
+                <div class="btn_div">
+                  <button class="customize_btn middle_btn">
+                    Customize theme
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="right_guide">
+              <img
+                class="right_image"
+                src="https://crushingit.tech/hackathon-assets/customise-store.png"
+                alt="middle_icon"
+              />
             </div>
           </div>
-
-          <div class="right_guide">
-            <img
-              class="right_image"
-              src="https://crushingit.tech/hackathon-assets/customise-store.png"
-              alt="middle_icon"
-            />
-          </div>
-        </div>
-        <div class="guides">
-          <div class="left_guide clickable">
-            <div class="left_guide_header">
-              <div class="circle_icon_div">
-                <svg
-                  class="circle_icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
-                  fill="none"
+          <div
+            class="guides"
+            role="menu"
+            aria-hidden="true"
+            aria-labelledby="stepButton1"
+            id="stepGuide1"
+            tabindex="1"
+          >
+            <div class="left_guide clickable">
+              <div class="left_guide_header">
+                <button class="circle_icon_div">
+                  <svg
+                    class="circle_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="#8A8A8A"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="4 6"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="stepButton1"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="stepGuide1"
+                  class="guide_title clickable"
                 >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#8A8A8A"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-dasharray="4 6"
-                  />
-                </svg>
+                  Add your first product
+                </button>
               </div>
-              <p class="guide_title clickable">Add your first product</p>
-            </div>
 
-            <div class="middle_guide">
-              <p class="guide_body">
-                Write a description, add photos, and set pricing for the
-                products you plan to sell. <a href="URL">Learn More</a>
-              </p>
-              <div class="btn_div">
-                <button class="add_btn middle_btn">Add product</button>
-                <button class="add_text">Import product</button>
+              <div class="middle_guide">
+                <p class="guide_body">
+                  Write a description, add photos, and set pricing for the
+                  products you plan to sell. <a href="URL">Learn More</a>
+                </p>
+                <div class="btn_div">
+                  <button class="add_btn middle_btn">Add product</button>
+                  <button class="add_text">Import product</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="right_guide">
-            <img
-              class="right_image"
-              src="https://crushingit.tech/hackathon-assets/product.png"
-              alt="middle_icon"
-            />
+            <div class="right_guide">
+              <img
+                class="right_image"
+                src="https://crushingit.tech/hackathon-assets/product.png"
+                alt="middle_icon"
+              />
+            </div>
           </div>
-        </div>
-        <div class="guides">
-          <div class="left_guide clickable">
-            <div class="left_guide_header">
-              <div class="circle_icon_div">
-                <svg
-                  class="circle_icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
-                  fill="none"
+          <div
+            aria-hidden="true"
+            class="guides"
+            role="menu"
+            aria-labelledby="stepButton2"
+            id="stepGuide2"
+            tabindex="2"
+          >
+            <div class="left_guide clickable">
+              <div class="left_guide_header">
+                <button class="circle_icon_div">
+                  <svg
+                    class="circle_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="#8A8A8A"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="4 6"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="stepButton2"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="stepGuide2"
+                  class="guide_title clickable"
                 >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#8A8A8A"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-dasharray="4 6"
-                  />
-                </svg>
+                  Add a custom domain
+                </button>
               </div>
-              <p class="guide_title clickable">Add a custom domain</p>
-            </div>
 
-            <div class="middle_guide">
-              <p class="guide_body">
-                Your current domain is 222219.myshopify.com but you can add a
-                custom domain to help customers find your online store.
-                <a href="URL">Learn More</a>
-              </p>
-              <div class="btn_div">
-                <button class="add_btn middle_btn">Add domain</button>
+              <div class="middle_guide">
+                <p class="guide_body">
+                  Your current domain is 222219.myshopify.com but you can add a
+                  custom domain to help customers find your online store.
+                  <a href="URL">Learn More</a>
+                </p>
+                <div class="btn_div">
+                  <button class="add_btn middle_btn">Add domain</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="right_guide">
-            <img
-              class="right_image"
-              src="https://crushingit.tech/hackathon-assets/website.png"
-              alt="middle_icon"
-            />
+            <div class="right_guide">
+              <img
+                class="right_image"
+                src="https://crushingit.tech/hackathon-assets/website.png"
+                alt="middle_icon"
+              />
+            </div>
           </div>
-        </div>
-        <div class="guides">
-          <div class="left_guide clickable">
-            <div class="left_guide_header">
-              <div class="circle_icon_div">
-                <svg
-                  class="circle_icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
-                  fill="none"
+          <div
+            aria-hidden="true"
+            class="guides"
+            role="menu"
+            aria-labelledby="stepButton3"
+            id="stepGuide3"
+            tabindex="3"
+          >
+            <div class="left_guide clickable">
+              <div class="left_guide_header">
+                <button class="circle_icon_div">
+                  <svg
+                    class="circle_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="#8A8A8A"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="4 6"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="stepButton3"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="stepGuide3"
+                  class="guide_title clickable"
                 >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#8A8A8A"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-dasharray="4 6"
-                  />
-                </svg>
+                  Name your store
+                </button>
               </div>
-              <p class="guide_title clickable">Name your store</p>
-            </div>
 
-            <div class="middle_guide">
-              <p class="guide_body">
-                Your temporary store name is currently Davii collections. The
-                store name appears in your admin and your online store.
-                <a href="URL">Learn More</a>
-              </p>
-              <div class="btn_div">
-                <button class="add_btn middle_btn">Name store</button>
+              <div class="middle_guide">
+                <p class="guide_body">
+                  Your temporary store name is currently Davii collections. The
+                  store name appears in your admin and your online store.
+                  <a href="URL">Learn More</a>
+                </p>
+                <div class="btn_div">
+                  <button class="add_btn middle_btn">Name store</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="right_guide">
-            <img
-              class="right_image"
-              src="https://crushingit.tech/hackathon-assets/name-store.png"
-              alt="middle_icon"
-            />
+            <div class="right_guide">
+              <img
+                class="right_image"
+                src="https://crushingit.tech/hackathon-assets/name-store.png"
+                alt="middle_icon"
+              />
+            </div>
           </div>
-        </div>
-        <div class="guides">
-          <div class="left_guide clickable">
-            <div class="left_guide_header">
-              <div class="circle_icon_div">
-                <svg
-                  class="circle_icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 32 32"
-                  fill="none"
+          <div
+            aria-hidden="true"
+            class="guides"
+            role="menu"
+            aria-labelledby="stepButton4"
+            id="stepGuide4"
+            tabindex="4"
+          >
+            <div class="left_guide clickable">
+              <div class="left_guide_header">
+                <button class="circle_icon_div">
+                  <svg
+                    class="circle_icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                  >
+                    <circle
+                      cx="16"
+                      cy="16"
+                      r="12"
+                      stroke="#8A8A8A"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="4 6"
+                    />
+                  </svg>
+                </button>
+                <button
+                  id="stepButton4"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-controls="stepGuide4"
+                  class="guide_title clickable"
                 >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#8A8A8A"
-                    stroke-width="2.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-dasharray="4 6"
-                  />
-                </svg>
+                  Set up a payment provider
+                </button>
               </div>
-              <p class="guide_title clickable">Set up a payment provider</p>
-            </div>
 
-            <div class="middle_guide">
-              <p class="guide_body">
-                Choose a payment provider to start accepting payments. You’ll
-                need to create an account with the payment provider and set it
-                up with your Shopify store. <a href="URL">Learn More</a>
-              </p>
-              <div class="btn_div">
-                <button class="add_btn middle_btn">Set up payment</button>
+              <div class="middle_guide">
+                <p class="guide_body">
+                  Choose a payment provider to start accepting payments. You’ll
+                  need to create an account with the payment provider and set it
+                  up with your Shopify store. <a href="URL">Learn More</a>
+                </p>
+                <div class="btn_div">
+                  <button class="add_btn middle_btn">Set up payment</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="right_guide">
-            <img
-              class="right_image"
-              src="https://crushingit.tech/hackathon-assets/payment.png"
-              alt="middle_icon"
-            />
+            <div class="right_guide">
+              <img
+                class="right_image"
+                src="https://crushingit.tech/hackathon-assets/payment.png"
+                alt="middle_icon"
+              />
+            </div>
           </div>
         </div>
       </section>

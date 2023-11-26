@@ -1,93 +1,308 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const notifiIcon = document.querySelector(".notifi_icon_div");
-  const settingIcon = document.querySelector(".details_div");
-  const notificationContainer = document.getElementById(
-    "notificationContainer"
-  );
-  const settingsContainer = document.getElementById("settingsContainer");
-  notifiIcon.addEventListener("click", function () {
-    const computedStyles = window.getComputedStyle(notificationContainer);
-    const currentDisplayValue = computedStyles.display;
-    notificationContainer.style.display =
-      currentDisplayValue === "none" ? "block" : "none";
-  });
-  settingIcon.addEventListener("click", function () {
-    const computedStyles = window.getComputedStyle(settingsContainer);
-    const currentDisplayValue = computedStyles.display;
-    settingsContainer.style.display =
-      currentDisplayValue === "none" ? "block" : "none";
-  });
+const settingsContainer = document.querySelector(".settings_container");
+const settingIcon = document.querySelector(".details_div");
+const notifiIcon = document.querySelector(".notifi_icon_div");
+const closeTileBtn = document.querySelector(".close_btn");
+const trialCalloutDiv = document.querySelector(".main_header_msg");
+const guideTitle = document.querySelectorAll(".guide_title");
 
-  //   closeNotificationBtn.addEventListener("click", function () {
-  //     notificationContainer.style.display = "none";
-  //   });
+const notificationContainer = document.querySelector(".notification_container");
+
+function closeTile() {
+  closeTileBtn.addEventListener("click", handleCloseTileBtn);
+}
+function handleCloseTileBtn() {
+  trialCalloutDiv.classList.add("trial_callout_none");
+}
+closeTile();
+//function to open and close the settings and notifications menu
+function menuOpenandClose() {
+  notifiIcon.addEventListener("click", toggleNotificationMenuHandler);
+  settingIcon.addEventListener("click", toggleSettingsMenuHandler);
+}
+function closeNotificationsMenuOnBodyClick(event) {
+  const isClickInsideDropdown =
+    event.target === notificationContainer ||
+    notificationContainer.contains(event.target);
+  const isClickInsideButton =
+    event.target === notifiIcon || notifiIcon.contains(event.target);
+  if (!isClickInsideButton && !isClickInsideDropdown) {
+    notificationContainer.setAttribute("aria-hidden", true);
+    notifiIcon.setAttribute("aria-expanded", false);
+    if (notificationContainer.classList.contains("menu_active")) {
+      notificationContainer.classList.remove("menu_active");
+    }
+    const updatedAriaValue = notificationContainer.getAttribute("aria-hidden");
+    console.log(updatedAriaValue);
+  }
+}
+function closeSettingsMenuOnBodyClick(event) {
+  const isClickInsideDropdown =
+    event.target === settingsContainer ||
+    settingsContainer.contains(event.target);
+  const isClickInsideButton =
+    event.target === settingIcon || settingIcon.contains(event.target);
+  if (!isClickInsideButton && !isClickInsideDropdown) {
+    settingsContainer.setAttribute("aria-hidden", true);
+    settingIcon.setAttribute("aria-expanded", false);
+    if (settingsContainer.classList.contains("menu_active")) {
+      settingsContainer.classList.remove("menu_active");
+    }
+  }
+}
+document.addEventListener("click", function (event) {
+  if (settingsContainer.getAttribute("aria-hidden") === "false") {
+    closeSettingsMenuOnBodyClick(event);
+    console.log("closed settings menu");
+  } else if (notificationContainer.getAttribute("aria-hidden") === "false") {
+    closeNotificationsMenuOnBodyClick(event);
+    console.log("closed notification menu");
+  }
 });
-const ratioComplete = document.querySelector(".ratio_complete");
-const circleDiv = document.querySelectorAll(".circle_icon_div");
-const circleIcon = document.querySelectorAll(".circle_icon");
-const toggleButton = document.querySelector(".right_side_top_header");
-const container = document.querySelector(".main_section_body");
-const progressBar = document.querySelector(".progress-bar");
+function toggleNotificationMenuHandler(event) {
+  const isMenuExpanded =
+    notifiIcon.attributes["aria-expanded"].value === "true";
+  notificationContainer.classList.toggle("menu_active");
+  console.log;
 
-const guides = document.querySelectorAll(".guides");
-document
-  .querySelectorAll(".left_guide_header")
-  .forEach(function (clicked, index) {
-    clicked.addEventListener("click", function () {
-      toggleGuide(index);
+  notificationContainer.setAttribute("aria-hidden", isMenuExpanded);
+  if (isMenuExpanded) {
+    notifiIcon.ariaExpanded = "false";
+    notifiIcon.focus();
+  } else {
+    const allMenuItems =
+      notificationContainer.querySelectorAll("[role=menuitem]");
+    notifiIcon.ariaExpanded = "true";
+    setTimeout(function () {
+      allMenuItems[0].focus();
+    }, 30);
+    notificationContainer.addEventListener("keyup", function (event) {
+      if (event.key === "Escape") {
+        toggleNotificationMenuHandler();
+      }
+      allMenuItems.forEach(function (item, index) {
+        item.addEventListener("keyup", function (event) {
+          handleNotificationKeyUp(event, index);
+        });
+      });
+    });
+  }
+}
+
+function toggleSettingsMenuHandler() {
+  const isMenuExpanded =
+    settingIcon.attributes["aria-expanded"].value === "true";
+  settingsContainer.classList.toggle("menu_active");
+  const allMenuItems = settingsContainer.querySelectorAll("[role=menuitem]");
+  settingsContainer.setAttribute("aria-hidden", isMenuExpanded);
+  if (isMenuExpanded) {
+    settingIcon.ariaExpanded = "false";
+    settingIcon.focus();
+  } else {
+    settingIcon.ariaExpanded = "true";
+    setTimeout(function () {
+      allMenuItems[0].focus();
+    }, 30);
+
+    settingsContainer.addEventListener("keyup", function (event) {
+      if (event.key === "Escape") {
+        toggleSettingsMenuHandler();
+      }
+      allMenuItems.forEach(function (item, index) {
+        item.addEventListener("keyup", function (event) {
+          handleSettingsMenuKeyUp2(event, index);
+        });
+      });
+    });
+  }
+}
+function handleSettingsMenuKeyUp2(event, index) {
+  const allMenuItems = settingsContainer.querySelectorAll("[role=menuitem]");
+  const isLastMenuItem = index === allMenuItems.length - 1;
+  const isFirstMenuItem = index === 0;
+
+  const nextMenuItem = allMenuItems.item(index + 1);
+  const previousMenuItem = allMenuItems.item(index - 1);
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    if (isLastMenuItem) {
+      allMenuItems.item(0).focus();
+    } else {
+      nextMenuItem.focus();
+    }
+  }
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    if (isFirstMenuItem) {
+      allMenuItems.item(allMenuItems.length - 1).focus();
+    } else {
+      previousMenuItem.focus();
+    }
+  }
+}
+function handleNotificationKeyUp(event, index) {
+  const allMenuItems =
+    notificationContainer.querySelectorAll("[role=menuitem]");
+  const isLastMenuItem = index === allMenuItems.length - 1;
+  const isFirstMenuItem = index === 0;
+  const nextMenuItem = allMenuItems.item(index + 1);
+  const previousMenuItem = allMenuItems.item(index - 1);
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    if (isLastMenuItem) {
+      allMenuItems.item(0).focus();
+    } else {
+      nextMenuItem.focus();
+    }
+  }
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    if (isFirstMenuItem) {
+      allMenuItems.item(allMenuItems.length - 1).focus();
+    } else {
+      previousMenuItem.focus();
+    }
+  }
+}
+function handleSetupKeyUp2(event, index) {
+  const allStepsContainerItem =
+    stepsContainer.querySelectorAll("[role=menuitem]");
+  const isLastMenuItem = index === allStepsContainerItem.length - 1;
+  const isFirstMenuItem = index === 0;
+
+  const nextMenuItem = allStepsContainerItem.item(index + 1);
+  const previousMenuItem = allStepsContainerItem.item(index - 1);
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    if (isLastMenuItem) {
+      allStepsContainerItem.item(0).focus();
+    } else {
+      nextMenuItem.focus();
+    }
+  }
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    if (isFirstMenuItem) {
+      allStepsContainerItem.item(allStepsContainerItem.length - 1).focus();
+    } else {
+      previousMenuItem.focus();
+    }
+  }
+}
+function handleCircleKeyUp2(event, index) {
+  const leftGuide = stepsContainer.querySelectorAll(".left_guide_header");
+
+  const allStepsCircle = stepsContainer.querySelectorAll(".circle_icon_div");
+  const allStepsGuideTitle = stepsContainer.querySelectorAll(".guide_title");
+  const isLastMenuItem = index === allStepsCircle.length - 1;
+
+  const isFirstMenuItem = index === 0;
+  const isFirstGuideItem = index === 0;
+
+  const nextMenuItem = allStepsCircle.item(index + 1);
+
+  const previousMenuItem = allStepsCircle.item(index - 1);
+  const previousGuideItem = allStepsGuideTitle.item(index - 1);
+  if (event.key === "ArrowDown") {
+    if (isLastMenuItem) {
+      allStepsCircle.item(0).focus();
+    } else {
+      nextMenuItem.focus();
+    }
+  }
+  if (event.key === "ArrowUp") {
+    if (isFirstMenuItem) {
+      allStepsCircle.item(allStepsCircle.length - 1).focus();
+    } else {
+      previousMenuItem.focus();
+    }
+  }
+  if (event.key === "ArrowRight") {
+    if (isFirstGuideItem) {
+      allStepsGuideTitle.item(allStepsGuideTitle.length - 1).focus();
+    } else {
+      previousGuideItem.focus();
+    }
+  }
+}
+//function to open and close setup Guide card
+function toggleMainContainer() {
+  const toggleButton = document.querySelector(".right_side_top_header");
+  toggleButton.addEventListener("click", toggleMainContainerHandler);
+}
+
+//function to open and close each steps
+function toggleStepsOnClick() {
+  document
+    .querySelectorAll(".left_guide_header")
+    .forEach(function (clicked, index) {
+      clicked.addEventListener("click", function () {
+        toggleGuide(index);
+      });
+    });
+}
+
+//function to handle steps by swapping completed and uncompleted svg
+function stepCompleted() {
+  const ratioComplete = document.querySelector(".ratio_complete");
+  const circleDiv = document.querySelectorAll(".circle_icon_div");
+  const progressBar = document.querySelector(".progress-bar");
+  circleDiv.forEach(function (svgDiv, index) {
+    svgDiv.addEventListener("click", function (event) {
+      if (svgDiv.children[0].classList.value === "circle_icon") {
+        svgDiv.innerHTML = getLoadingIcon();
+        setTimeout(function () {
+          svgDiv.innerHTML = getCompleteIcon();
+          toggleGuide(index + 1);
+        }, 500);
+      } else {
+        svgDiv.innerHTML = getDashedIcon();
+      }
+      let notContainCount = 0;
+
+      for (let i = 0; i < circleDiv.length; i++) {
+        if (!circleDiv[i].children[0].classList.contains("circle_icon")) {
+          notContainCount++;
+        }
+      }
+      switch (notContainCount) {
+        case 0:
+          progressBar.style.width = 0 + "%";
+          ratioComplete.textContent = "0/5 completed";
+          break;
+        case 1:
+          progressBar.style.width = 20 + "%";
+          ratioComplete.textContent = "1/5 completed";
+          break;
+        case 2:
+          progressBar.style.width = 40 + "%";
+          ratioComplete.textContent = "2/5 completed";
+          break;
+        case 3:
+          progressBar.style.width = 60 + "%";
+          ratioComplete.textContent = "3/5 completed";
+          break;
+        case 4:
+          progressBar.style.width = 80 + "%";
+          ratioComplete.textContent = "4/5 completed";
+          break;
+        case 5:
+          progressBar.style.width = 100 + "%";
+          ratioComplete.textContent = "5/5 completed";
+          break;
+        default:
+          progressBar.style.width = 0 + "%";
+          ratioComplete.innerHTML = "0/5 completed";
+      }
+    });
+    circleDiv.forEach(function (circle) {
+      circle.addEventListener("mouseenter", function () {
+        circle.querySelector("circle").setAttribute("stroke-dasharray", "2");
+      });
+      circle.addEventListener("mouseleave", function () {
+        circle.querySelector("circle").setAttribute("stroke-dasharray", "4 6");
+      });
     });
   });
-toggleButton.addEventListener("click", toggleMainContainer);
-//event listener to swap completed and uncompleted svg
-circleDiv.forEach(function (svgDiv, index) {
-  svgDiv.addEventListener("click", function (event) {
-    if (svgDiv.children[0].classList.value === "circle_icon") {
-      svgDiv.innerHTML = getLoadingIcon();
-      setTimeout(function () {
-        svgDiv.innerHTML = getCompleteIcon();
-        toggleGuide(index + 1);
-      }, 500);
-    } else {
-      svgDiv.innerHTML = getDashedIcon();
-    }
-    let notContainCount = 0;
+}
 
-    for (let i = 0; i < circleDiv.length; i++) {
-      if (!circleDiv[i].children[0].classList.contains("circle_icon")) {
-        notContainCount++;
-      }
-    }
-    switch (notContainCount) {
-      case 0:
-        progressBar.style.width = 0 + "%";
-        ratioComplete.textContent = "0/5 completed";
-        break;
-      case 1:
-        progressBar.style.width = 20 + "%";
-        ratioComplete.textContent = "1/5 completed";
-        break;
-      case 2:
-        progressBar.style.width = 40 + "%";
-        ratioComplete.textContent = "2/5 completed";
-        break;
-      case 3:
-        progressBar.style.width = 60 + "%";
-        ratioComplete.textContent = "3/5 completed";
-        break;
-      case 4:
-        progressBar.style.width = 80 + "%";
-        ratioComplete.textContent = "4/5 completed";
-        break;
-      case 5:
-        progressBar.style.width = 100 + "%";
-        ratioComplete.textContent = "5/5 completed";
-        break;
-      default:
-        progressBar.style.width = 0 + "%";
-        ratioComplete.innerHTML = "0/5 completed";
-    }
-  });
-  circleDiv.forEach(function (circle) {
+//function to handle circle icon mouse enter & leave
+function progressCircleAnimation() {
+  const circleIcon = document.querySelectorAll(".circle_icon");
+  circleIcon.forEach(function (circle) {
     circle.addEventListener("mouseenter", function () {
       circle.querySelector("circle").setAttribute("stroke-dasharray", "2");
     });
@@ -95,39 +310,52 @@ circleDiv.forEach(function (svgDiv, index) {
       circle.querySelector("circle").setAttribute("stroke-dasharray", "4 6");
     });
   });
-});
-
-//event listener to handle circle icon mouse enter & leave
-circleIcon.forEach(function (circle) {
-  circle.addEventListener("mouseenter", function () {
-    circle.querySelector("circle").setAttribute("stroke-dasharray", "2");
-  });
-  circle.addEventListener("mouseleave", function () {
-    circle.querySelector("circle").setAttribute("stroke-dasharray", "4 6");
-  });
-});
-//function to increase progress bar
-function increaseProgressBar(value) {
-  const progressBar = document.querySelector(".progress-bar");
-  progressBar.style.width = value + "%";
 }
-function decreaseProgressBar(value) {
-  const progressBar = document.getElementById("myProgressBar");
-  progressBar.style.width = progressBar.style.width - value + "%";
-}
+menuOpenandClose();
+toggleMainContainer();
+toggleStepsOnClick();
+stepCompleted();
+progressCircleAnimation();
+/*
+EVENTS HANDLERS
+ */
 // event handler to toggle main container
-function toggleMainContainer() {
-  const container = document.querySelector(".main_section_body");
-
+const toggleButton = document.querySelector(".right_side_top_header");
+const container = document.querySelector(".main_section_body");
+const stepsContainer = document.querySelector(".steps_wrapper");
+function toggleMainContainerHandler() {
+  setguideState(0);
   const computedStyles = window.getComputedStyle(container);
   const currentMaxHeight = computedStyles.maxHeight;
-
+  const isMenuExpanded =
+    toggleButton.attributes["aria-expanded"].value === "true";
   container.style.maxHeight =
     currentMaxHeight === "200px" ? "fit-content" : "200px";
-  const containerChildren = container.children;
 
-  for (let i = 2; i < containerChildren.length; i++) {
-    const child = containerChildren[i];
+  stepsContainer.classList.toggle("menu_active", currentMaxHeight === "200px");
+  stepsContainer.setAttribute("aria-hidden", isMenuExpanded);
+
+  const allStepsCircle = stepsContainer.querySelectorAll(".left_guide_header");
+
+  const stepsChildren = stepsContainer.children;
+  if (isMenuExpanded) {
+    toggleButton.ariaExpanded = "false";
+    toggleButton.focus();
+  } else {
+    toggleButton.ariaExpanded = "true";
+    setTimeout(function () {
+      allStepsCircle[0].children[0].focus();
+    }, 40);
+
+    allStepsCircle.forEach(function (item, index) {
+      item.addEventListener("keyup", function (event) {
+        handleCircleKeyUp2(event, index);
+      });
+    });
+  }
+
+  for (let i = 0; i < stepsChildren.length; i++) {
+    const child = stepsChildren[i];
     child.classList.toggle("flex", currentMaxHeight === "200px");
     child.classList.toggle("none", currentMaxHeight === " fit-content");
   }
@@ -135,8 +363,8 @@ function toggleMainContainer() {
     container.style.maxHeight === "fit-content"
       ? getDropdownIcon()
       : getDropupIcon();
-  for (let i = 3; i < containerChildren.length; i++) {
-    const child = containerChildren[i];
+  for (let i = 1; i < stepsChildren.length; i++) {
+    const child = stepsChildren[i];
 
     child.classList.toggle("hidden", currentMaxHeight === "200px");
     child.classList.toggle("visible", currentMaxHeight === " fit-content");
@@ -149,11 +377,33 @@ function toggleMainContainer() {
     }
   }
 }
-
+function setguideState(toggleIndex) {
+  const guides = document.querySelectorAll(".guides");
+  guideTitle.forEach(function (guide, index) {
+    if (toggleIndex === index) {
+      const isMenuExpanded = guide.attributes["aria-expanded"].value === "true";
+      guides.forEach(function (guide, index) {
+        if (toggleIndex === index) {
+          guide.setAttribute("aria-hidden", isMenuExpanded);
+        } else {
+          guide.setAttribute("aria-hidden", !isMenuExpanded);
+        }
+      });
+      if (isMenuExpanded) {
+        guide.ariaExpanded = "false";
+        guide.focus();
+      } else {
+        guide.ariaExpanded = "true";
+      }
+    } else {
+      guide.ariaExpanded = "false";
+    }
+  });
+}
 //event handler to toggle the individual guides
 function toggleGuide(index) {
   const guides = document.querySelectorAll(".guides");
-
+  setguideState(index);
   guides.forEach(function (guide, guideIndex) {
     const isCurrentGuide = index === guideIndex;
 
@@ -167,6 +417,10 @@ function toggleGuide(index) {
     guide.style.backgroundColor = isCurrentGuide ? "#f3f3f3" : "transparent";
   });
 }
+
+/*
+FUNCTION TO GET DYNAMIC SVGS
+ */
 // Function to get the SVG markup for the dropdown icon
 function getDropdownIcon() {
   return `<svg
