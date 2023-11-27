@@ -358,6 +358,7 @@ a {
 .trial_callout_none {
   opacity: 0;
   visibility: hidden;
+  display: none;
 }
 .flex {
   display: flex;

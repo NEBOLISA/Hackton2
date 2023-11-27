@@ -4,7 +4,9 @@ const notifiIcon = document.querySelector(".notifi_icon_div");
 const closeTileBtn = document.querySelector(".close_btn");
 const trialCalloutDiv = document.querySelector(".main_header_msg");
 const guideTitle = document.querySelectorAll(".guide_title");
-
+const toggleButton = document.querySelector(".right_side_top_header");
+const container = document.querySelector(".main_section_body");
+const stepsContainer = document.querySelector(".steps_wrapper");
 const notificationContainer = document.querySelector(".notification_container");
 
 function closeTile() {
@@ -14,11 +16,12 @@ function handleCloseTileBtn() {
   trialCalloutDiv.classList.add("trial_callout_none");
 }
 closeTile();
-//function to open and close the settings and notifications menu
+//function to  open and close  the settings and notifications menu and set aria attributes states
 function menuOpenandClose() {
   notifiIcon.addEventListener("click", toggleNotificationMenuHandler);
   settingIcon.addEventListener("click", toggleSettingsMenuHandler);
 }
+//function to close notifications menu when user clicks outside the notification
 function closeNotificationsMenuOnBodyClick(event) {
   const isClickInsideDropdown =
     event.target === notificationContainer ||
@@ -35,6 +38,7 @@ function closeNotificationsMenuOnBodyClick(event) {
     console.log(updatedAriaValue);
   }
 }
+//function to close settings menu when user clicks outside the notification
 function closeSettingsMenuOnBodyClick(event) {
   const isClickInsideDropdown =
     event.target === settingsContainer ||
@@ -58,11 +62,12 @@ document.addEventListener("click", function (event) {
     console.log("closed notification menu");
   }
 });
+
+// handler to toggle notification menu and set aria-attributes as well
 function toggleNotificationMenuHandler(event) {
   const isMenuExpanded =
     notifiIcon.attributes["aria-expanded"].value === "true";
   notificationContainer.classList.toggle("menu_active");
-  console.log;
 
   notificationContainer.setAttribute("aria-hidden", isMenuExpanded);
   if (isMenuExpanded) {
@@ -87,7 +92,7 @@ function toggleNotificationMenuHandler(event) {
     });
   }
 }
-
+// handler to toggle settings menu and set aria-attributes as well
 function toggleSettingsMenuHandler() {
   const isMenuExpanded =
     settingIcon.attributes["aria-expanded"].value === "true";
@@ -115,6 +120,7 @@ function toggleSettingsMenuHandler() {
     });
   }
 }
+//handler to navigate settings menu using arrow keys
 function handleSettingsMenuKeyUp2(event, index) {
   const allMenuItems = settingsContainer.querySelectorAll("[role=menuitem]");
   const isLastMenuItem = index === allMenuItems.length - 1;
@@ -137,6 +143,7 @@ function handleSettingsMenuKeyUp2(event, index) {
     }
   }
 }
+//handler to navigate notifications menu using arrow keys
 function handleNotificationKeyUp(event, index) {
   const allMenuItems =
     notificationContainer.querySelectorAll("[role=menuitem]");
@@ -159,29 +166,30 @@ function handleNotificationKeyUp(event, index) {
     }
   }
 }
-function handleSetupKeyUp2(event, index) {
-  const allStepsContainerItem =
-    stepsContainer.querySelectorAll("[role=menuitem]");
-  const isLastMenuItem = index === allStepsContainerItem.length - 1;
-  const isFirstMenuItem = index === 0;
+// function handleSetupKeyUp2(event, index) {
+//   const allStepsContainerItem =
+//     stepsContainer.querySelectorAll("[role=menuitem]");
+//   const isLastMenuItem = index === allStepsContainerItem.length - 1;
+//   const isFirstMenuItem = index === 0;
 
-  const nextMenuItem = allStepsContainerItem.item(index + 1);
-  const previousMenuItem = allStepsContainerItem.item(index - 1);
-  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-    if (isLastMenuItem) {
-      allStepsContainerItem.item(0).focus();
-    } else {
-      nextMenuItem.focus();
-    }
-  }
-  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-    if (isFirstMenuItem) {
-      allStepsContainerItem.item(allStepsContainerItem.length - 1).focus();
-    } else {
-      previousMenuItem.focus();
-    }
-  }
-}
+//   const nextMenuItem = allStepsContainerItem.item(index + 1);
+//   const previousMenuItem = allStepsContainerItem.item(index - 1);
+//   if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+//     if (isLastMenuItem) {
+//       allStepsContainerItem.item(0).focus();
+//     } else {
+//       nextMenuItem.focus();
+//     }
+//   }
+//   if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+//     if (isFirstMenuItem) {
+//       allStepsContainerItem.item(allStepsContainerItem.length - 1).focus();
+//     } else {
+//       previousMenuItem.focus();
+//     }
+//   }
+// }
+//handler to focus the checkbox on keyup
 function handleCircleKeyUp2(event, index) {
   const leftGuide = stepsContainer.querySelectorAll(".left_guide_header");
 
@@ -320,9 +328,6 @@ progressCircleAnimation();
 EVENTS HANDLERS
  */
 // event handler to toggle main container
-const toggleButton = document.querySelector(".right_side_top_header");
-const container = document.querySelector(".main_section_body");
-const stepsContainer = document.querySelector(".steps_wrapper");
 function toggleMainContainerHandler() {
   setguideState(0);
   const computedStyles = window.getComputedStyle(container);
@@ -376,6 +381,8 @@ function toggleMainContainerHandler() {
     }
   }
 }
+
+//function to toggle each step guide aria attribute(aria-expanded and aria-hidden)
 function setguideState(toggleIndex) {
   const guides = document.querySelectorAll(".guides");
   guideTitle.forEach(function (guide, index) {
