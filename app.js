@@ -166,29 +166,7 @@ function handleNotificationKeyUp(event, index) {
     }
   }
 }
-// function handleSetupKeyUp2(event, index) {
-//   const allStepsContainerItem =
-//     stepsContainer.querySelectorAll("[role=menuitem]");
-//   const isLastMenuItem = index === allStepsContainerItem.length - 1;
-//   const isFirstMenuItem = index === 0;
 
-//   const nextMenuItem = allStepsContainerItem.item(index + 1);
-//   const previousMenuItem = allStepsContainerItem.item(index - 1);
-//   if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-//     if (isLastMenuItem) {
-//       allStepsContainerItem.item(0).focus();
-//     } else {
-//       nextMenuItem.focus();
-//     }
-//   }
-//   if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-//     if (isFirstMenuItem) {
-//       allStepsContainerItem.item(allStepsContainerItem.length - 1).focus();
-//     } else {
-//       previousMenuItem.focus();
-//     }
-//   }
-// }
 //handler to focus the checkbox on keyup
 function handleCircleKeyUp2(event, index) {
   const leftGuide = stepsContainer.querySelectorAll(".left_guide_header");
@@ -254,10 +232,17 @@ function stepCompleted() {
         svgDiv.innerHTML = getLoadingIcon();
         setTimeout(function () {
           svgDiv.innerHTML = getCompleteIcon();
-          toggleGuide(index + 1);
+
+          if (index === circleDiv.length - 1) {
+            circleDiv.item(0).focus();
+          } else {
+            circleDiv.item(index + 1).focus();
+            toggleGuide(index + 1);
+          }
         }, 500);
       } else {
         svgDiv.innerHTML = getDashedIcon();
+        //toggleGuide(index + 1);
       }
       let notContainCount = 0;
 
@@ -397,7 +382,7 @@ function setguideState(toggleIndex) {
       });
       if (isMenuExpanded) {
         guide.ariaExpanded = "false";
-        guide.focus();
+        //guide.focus();
       } else {
         guide.ariaExpanded = "true";
       }
